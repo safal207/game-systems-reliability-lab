@@ -49,8 +49,12 @@ for (let i = 0; i < clients; i += 1) {
   });
 
   const startedAt = process.hrtime.bigint();
+  let finished = false;
 
   const done = (failed) => {
+    if (finished) return;
+    finished = true;
+
     if (socket.disconnected === false) socket.disconnect();
     if (failed) failures += 1;
     completed += 1;
