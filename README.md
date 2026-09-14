@@ -4,6 +4,8 @@
 
 Practical QA and reliability engineering for real-time multiplayer games: economy integrity, retries, concurrency, server authority, Socket.IO behavior, load evidence, and failure recovery.
 
+**Client review:** [Case Study](docs/CASE_STUDY.md) · [Evidence Register](docs/EVIDENCE.md) · [Automated Tests](test/socket-integration.test.js)
+
 This is a portfolio lab built around one principle:
 
 > A multiplayer feature is not reliable because it looks correct once. It is reliable when important invariants survive retries, reconnects, races, duplicate messages, and hostile client input.
@@ -92,20 +94,21 @@ A production-scale 1,000-player claim should additionally include repeatable env
 
 ```text
 src/
-  reward-ledger.js          # deterministic economic state + idempotency guard
-  server.js                 # testable Socket.IO authoritative server
+  reward-ledger.js           # deterministic economic state + idempotency guard
+  server.js                  # testable Socket.IO authoritative server
 
 test/
-  reward-ledger.test.js     # deterministic unit-level regression proof
-  socket-integration.test.js# reconnect, concurrency and authority proof
+  reward-ledger.test.js      # deterministic unit-level regression proof
+  socket-integration.test.js # reconnect, concurrency and authority proof
 
 scripts/
-  socket-load-smoke.js      # concurrent Socket.IO smoke-load harness
+  socket-load-smoke.js       # concurrent Socket.IO smoke-load harness
 
 docs/
-  RISK_MODEL.md             # prioritized multiplayer failure model
-  TEST_STRATEGY.md          # evidence and acceptance strategy
-  EVIDENCE.md               # claim-to-proof register
+  CASE_STUDY.md              # client-facing problem / approach / result
+  RISK_MODEL.md              # prioritized multiplayer failure model
+  TEST_STRATEGY.md           # evidence and acceptance strategy
+  EVIDENCE.md                # claim-to-proof register
 ```
 
 ## Engineering workflow
