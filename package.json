@@ -1,0 +1,20 @@
+{
+  "name": "game-systems-reliability-lab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Portfolio lab for multiplayer game QA, reliability, concurrency, and Socket.IO evidence.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "load:smoke": "node scripts/socket-load-smoke.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "socket.io": "4.8.3",
+    "socket.io-client": "4.8.3"
+  },
+  "license": "MIT"
+}
