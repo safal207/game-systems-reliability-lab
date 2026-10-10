@@ -1,0 +1,15 @@
+{
+  "name": "socketio-5512-ack-effect-boundary",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Userland Standard Schema and real Socket.IO acknowledgement effect controls",
+  "scripts": {
+    "test": "node run-matrix.cjs --output artifacts/ci-results.json"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "socket.io": "4.8.4",
+    "socket.io-client": "4.8.4",
+    "zod": "4.6.5"
+  }
+}
