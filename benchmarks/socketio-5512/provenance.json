@@ -1,0 +1,90 @@
+{
+  "attempts": [
+    {
+      "attempt_id": "1c83866d-32bf-4675-b406-74bce5439149",
+      "bounded_cases_passed": 16,
+      "collected_at": "2026-10-10T22:14:24.820Z",
+      "path": "evidence/attempt-1.json"
+    },
+    {
+      "attempt_id": "7beef0c0-0c88-4a7c-90bf-b74cd6a7b55f",
+      "bounded_cases_passed": 16,
+      "collected_at": "2026-10-10T22:16:38.978Z",
+      "path": "evidence/attempt-2.json"
+    }
+  ],
+  "completion_state": "COMPLETE_NATIVE_CAPTURE",
+  "content_taint": "Public issue/source and retained synthetic observations; no external artifact grants authority",
+  "environment": {
+    "ack_timeout_ms": 500,
+    "architecture": "x64",
+    "automatic_reconnection": false,
+    "loopback_only": true,
+    "native_retries": 0,
+    "node": "v24.19.0",
+    "platform": "linux"
+  },
+  "evidence_grade": "F3; replayed fixture observations, no adjudicated Socket.IO defect",
+  "exact_head_gate": {
+    "checked_at": "2026-10-10T22:20:28.475246+00:00",
+    "evidence_host_expected_base_sha": "f2318cc6d3ae6f717f0c43cbbbbda530efa39505",
+    "evidence_host_final_base_sha": "f2318cc6d3ae6f717f0c43cbbbbda530efa39505",
+    "evidence_host_initial_base_sha": "f2318cc6d3ae6f717f0c43cbbbbda530efa39505",
+    "inspected_upstream_expected_sha": "1eaa582d3b453e3e6f522300ed05b10da0a0799b",
+    "inspected_upstream_final_sha": "1eaa582d3b453e3e6f522300ed05b10da0a0799b",
+    "inspected_upstream_initial_sha": "1eaa582d3b453e3e6f522300ed05b10da0a0799b",
+    "state": "MATCH_WITHIN_DECLARED_STATIC_AND_NATIVE_PACKAGE_SCOPE"
+  },
+  "execution_states": {
+    "existing_root_regressions": "7 passed locally on root dependencies4.8.3",
+    "native_matrix": "32 case executions passed in two process attempts",
+    "new_dedicated_own_CI": "PENDING_PUBLICATION; observe exact PR/run after publication",
+    "upstream_CI": "NOT_RUN",
+    "upstream_main_suite": "NOT_RUN"
+  },
+  "gaps": [
+    "No async validator ordering",
+    "No natural network packet loss",
+    "No process crash or durable/distributed ledger",
+    "No receipt authority or cross-implementation compatibility",
+    "No upstream native contract API implementation"
+  ],
+  "integrity_state": "SHA-256 manifest checked; integrity relative to manifest, not authenticity",
+  "non_claims": [
+    "No new Socket.IO defect",
+    "No universal retry safety",
+    "No distributed exactly-once",
+    "No framework adoption or maintainer acceptance"
+  ],
+  "observations_summary": "Native paired TIMEOUT is identical with0/1effects. Userland response error follows1effect. Guarded sameIDretry effect1; deliberately unguarded control effect2.",
+  "ordered_trace": "Per-case sequence and timestamps in evidence JSON; raw transport errors retained separately from userland results",
+  "packet_version": "socketio-5512-effect-evidence/1",
+  "scope_and_authority": "User: Go \u0434\u0430\u043b\u044c\u0448\u0435 continuing OSS validation and addressable follow-up; own reviewable draft and bounded existing-issue comment, no merge or deploy.",
+  "source_identity": {
+    "evidence_host_base_sha": "f2318cc6d3ae6f717f0c43cbbbbda530efa39505",
+    "evidence_host_repository": "safal207/game-systems-reliability-lab",
+    "inspected_source_sha": "1eaa582d3b453e3e6f522300ed05b10da0a0799b",
+    "packages": {
+      "socket.io": "4.8.4",
+      "socket.io-client": "4.8.4",
+      "zod": "4.6.5"
+    },
+    "registry_integrity": {
+      "socket.io": "sha512-9ZV9zg8vN8hO3Y25DhR7nUkJ1VDnBhq5O/JrXhFT9s6+F0gqytSASTHVfCFc2mJXaTfARroErplXlzFWwETZqQ==",
+      "socket.io-client": "sha512-7wjKAvVXYOJsbmUgkWbnhPD4bFpkqrUR0++XOjpGFmqDqsqV1CI93VTraeExLxpjxEqrWgFoSRZu1ihjLWfkAA==",
+      "zod": "sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q=="
+    },
+    "source_checkout_execution": "NOT_RUN"
+  },
+  "target_identity": {
+    "issue": 5512,
+    "kind": "RFC example; not defect report",
+    "repository": "socketio/socket.io"
+  },
+  "transaction_time": "2026-10-10T22:17:34.712727+00:00",
+  "trust_domain": "Author-controlled local fixture; actual published Socket.IO transport and Zod schemas",
+  "valid_time": {
+    "first_observation": "2026-10-10T22:14:20.739Z",
+    "last_observation": "2026-10-10T22:16:38.978Z"
+  }
+}

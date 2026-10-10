@@ -1,0 +1,88 @@
+{
+  "files": [
+    {
+      "path": "MESSAGE.md",
+      "sha256": "1b8d14d659680fb028c2b6856ce377d0c9612460602d98c6bf92b50febecc5e1",
+      "size_bytes": 1871
+    },
+    {
+      "path": "README.md",
+      "sha256": "a934aafa811728573ef6f3397562a88451d6b93e17d3a60c16557765762d96f2",
+      "size_bytes": 5772
+    },
+    {
+      "path": "REVIEWS.md",
+      "sha256": "1ed5e121a14ec61b5f00936f9a0a696f87fea9ec8b72983fe24fe0d5cddb1e88",
+      "size_bytes": 1910
+    },
+    {
+      "path": "evidence/attempt-1.json",
+      "sha256": "57c4786ea9992bdc7317070adc6ccd5e4dda9dcdba55699a63a3212c90fad1e4",
+      "size_bytes": 46569
+    },
+    {
+      "path": "evidence/attempt-2.json",
+      "sha256": "a523a0c52b4e240972c7ffc498d6dc145450b97425207cd69410d0556847d3e9",
+      "size_bytes": 46569
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "eaebe5f837ba3f36613dd4adc8048483d7cd57f180f6f5e662dc7bf36672367e",
+      "size_bytes": 10661
+    },
+    {
+      "path": "package.json",
+      "sha256": "7c545561fe8eb166c30a1c5f27441c9d5e4d14cb6293a0dcb188ece1b6c755f0",
+      "size_bytes": 412
+    },
+    {
+      "path": "provenance.json",
+      "sha256": "685675db24070d884454a106d3db653f4a7fb4f682f1b6e3c955f8a6b440e74e",
+      "size_bytes": 4202
+    },
+    {
+      "path": "reviews/final-packet-review.md",
+      "sha256": "cc3bcd71bf766f3133c6fd3e073b7b363bae4e752e06dfce675b845d6c0570ab",
+      "size_bytes": 4773
+    },
+    {
+      "path": "reviews/final-runtime-review.md",
+      "sha256": "75fbd55de8c5f98f476711815546add4fb8330b7559db81484ef32e22b89cf6b",
+      "size_bytes": 7312
+    },
+    {
+      "path": "reviews/runner-review.md",
+      "sha256": "47c680c05b0366b318f68db196cc43e73814692da48072a8f72c157a7f05ef0e",
+      "size_bytes": 5708
+    },
+    {
+      "path": "run-matrix.cjs",
+      "sha256": "2b55f35c743a1a3e01336deaf7181a9f2968fe4e9241a2871d4044b4e9062267",
+      "size_bytes": 12812
+    },
+    {
+      "path": "scope.md",
+      "sha256": "92d6b457f5b240835c6d553fd526b7abbc44cd2703adcc25cef4a70036928c19",
+      "size_bytes": 2074
+    },
+    {
+      "path": "verify-evidence.cjs",
+      "sha256": "95f47cf899c1a40ae463ae34fd4c883b0418d002b2385ea17d6b9b4b33fa3f34",
+      "size_bytes": 2188
+    }
+  ],
+  "integrity_scope": "packet files and explicit repository source files; installed node_modules and generated artifacts excluded; not authenticity",
+  "repository_source_files": [
+    {
+      "path": "src/reward-ledger.js",
+      "sha256": "a200817c366406923ee9d6e41f86f787eb4d88a5f243ff55b61e0716c473522b",
+      "size_bytes": 1279
+    },
+    {
+      "path": ".github/workflows/socketio-5512.yml",
+      "sha256": "5188a930a3c0a7048abbd10c14692b71b80947919a78894dfd8fae8b3ea594a2",
+      "size_bytes": 1186
+    }
+  ],
+  "schema": "socketio-5512-evidence-manifest/1"
+}

@@ -1,0 +1,1710 @@
+{
+  "schema": "socketio-5512-native-transport-userland-validation/1",
+  "attempt_id": "1c83866d-32bf-4675-b406-74bce5439149",
+  "collected_at": "2026-10-10T22:14:24.820Z",
+  "node": "v24.19.0",
+  "platform": "linux",
+  "architecture": "x64",
+  "packages": {
+    "socket.io": "4.8.4",
+    "socket.io-client": "4.8.4",
+    "zod": "4.6.5"
+  },
+  "runner_sha256": "2b55f35c743a1a3e01336deaf7181a9f2968fe4e9241a2871d4044b4e9062267",
+  "ledger_sha256": "a200817c366406923ee9d6e41f86f787eb4d88a5f243ff55b61e0716c473522b",
+  "native_client_runtime_sha256": "6b39eee0bb9bfe63c29d350d20176648f2e8cc30bb60783bad8841840925f8fa",
+  "ack_timeout_ms": 500,
+  "native_retries": 0,
+  "auto_reconnection": false,
+  "validation_location": "explicit userland Standard Schema request helper and client response decoder",
+  "source_review_sha": "1eaa582d3b453e3e6f522300ed05b10da0a0799b",
+  "source_review_execution": "NOT_RUN; runtime uses published packages",
+  "cases": [
+    {
+      "case": "callback/success",
+      "api": "callback",
+      "scenario": "success",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 1,
+      "first": {
+        "transport_error": null,
+        "raw_ack_payload": {
+          "error": null,
+          "data": {
+            "actionId": "stable-business-action",
+            "playerId": "synthetic-player",
+            "amount": 10,
+            "applied": true,
+            "duplicate": false,
+            "balanceAfter": 10
+          }
+        },
+        "userland_result": {
+          "code": "OK",
+          "knowledge": "ACK_RECEIVED_AND_VALIDATED",
+          "data": {
+            "actionId": "stable-business-action",
+            "applied": true,
+            "duplicate": false,
+            "balanceAfter": 10
+          }
+        }
+      },
+      "retry": null,
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 1,
+      "balance": 10,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:20.739Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:20.740Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:20.741Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:20.741Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:20.741Z",
+          "event": "server_ack_sent",
+          "response_valid_in_fixture": true
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:20.742Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "OK"
+        }
+      ],
+      "expected": {
+        "first_code": "OK",
+        "effect_count": 1,
+        "balance": 10,
+        "business_handler_calls": 1
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "callback/invalid-request",
+      "api": "callback",
+      "scenario": "invalid-request",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 0,
+      "first": {
+        "transport_error": null,
+        "raw_ack_payload": {
+          "error": {
+            "code": "REQUEST_VALIDATION_ERROR"
+          },
+          "data": null
+        },
+        "userland_result": {
+          "code": "REQUEST_VALIDATION_ERROR",
+          "knowledge": "NO_SELECTED_HANDLER_EFFECT",
+          "data": null
+        }
+      },
+      "retry": null,
+      "first_effect_count": 0,
+      "first_balance": 0,
+      "effect_count": 0,
+      "balance": 0,
+      "effects": [],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:20.749Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": 42,
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:20.749Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": 42,
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:20.749Z",
+          "event": "request_rejected_before_business_handler"
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:20.750Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "REQUEST_VALIDATION_ERROR"
+        }
+      ],
+      "expected": {
+        "first_code": "REQUEST_VALIDATION_ERROR",
+        "effect_count": 0,
+        "balance": 0,
+        "business_handler_calls": 0
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "callback/invalid-response",
+      "api": "callback",
+      "scenario": "invalid-response",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 1,
+      "first": {
+        "transport_error": null,
+        "raw_ack_payload": {
+          "error": null,
+          "data": {
+            "actionId": "stable-business-action",
+            "playerId": "synthetic-player",
+            "amount": 10,
+            "applied": true,
+            "duplicate": false,
+            "balanceAfter": "ten"
+          }
+        },
+        "userland_result": {
+          "code": "RESPONSE_VALIDATION_ERROR",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": null,
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 1,
+      "balance": 10,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:20.753Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:20.753Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:20.753Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:20.753Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:20.753Z",
+          "event": "server_ack_sent",
+          "response_valid_in_fixture": false
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:20.753Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "RESPONSE_VALIDATION_ERROR"
+        }
+      ],
+      "expected": {
+        "first_code": "RESPONSE_VALIDATION_ERROR",
+        "effect_count": 1,
+        "balance": 10,
+        "business_handler_calls": 1
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "callback/timeout-no-effect",
+      "api": "callback",
+      "scenario": "timeout-no-effect",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 1,
+      "first": {
+        "transport_error": {
+          "name": "Error",
+          "message": "operation has timed out"
+        },
+        "raw_ack_payload": null,
+        "userland_result": {
+          "code": "TIMEOUT",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": null,
+      "first_effect_count": 0,
+      "first_balance": 0,
+      "effect_count": 0,
+      "balance": 0,
+      "effects": [],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:20.756Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:20.756Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:20.756Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:20.756Z",
+          "event": "ack_deliberately_withheld",
+          "effect_applied": false
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:21.256Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "TIMEOUT"
+        }
+      ],
+      "expected": {
+        "first_code": "TIMEOUT",
+        "effect_count": 0,
+        "balance": 0,
+        "business_handler_calls": 1
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "callback/timeout-after-effect",
+      "api": "callback",
+      "scenario": "timeout-after-effect",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 1,
+      "first": {
+        "transport_error": {
+          "name": "Error",
+          "message": "operation has timed out"
+        },
+        "raw_ack_payload": null,
+        "userland_result": {
+          "code": "TIMEOUT",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": null,
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 1,
+      "balance": 10,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:21.261Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:21.261Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:21.261Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:21.261Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:21.261Z",
+          "event": "ack_deliberately_withheld",
+          "effect_applied": true
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:21.762Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "TIMEOUT"
+        }
+      ],
+      "expected": {
+        "first_code": "TIMEOUT",
+        "effect_count": 1,
+        "balance": 10,
+        "business_handler_calls": 1
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "callback/disconnect-after-effect",
+      "api": "callback",
+      "scenario": "disconnect-after-effect",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 1,
+      "first": {
+        "transport_error": {
+          "name": "Error",
+          "message": "socket has been disconnected"
+        },
+        "raw_ack_payload": null,
+        "userland_result": {
+          "code": "DISCONNECTED",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": null,
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 1,
+      "balance": 10,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:21.765Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:21.765Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:21.765Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:21.765Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:21.765Z",
+          "event": "server_initiated_disconnect_after_effect"
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:21.766Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "DISCONNECTED"
+        }
+      ],
+      "expected": {
+        "first_code": "DISCONNECTED",
+        "effect_count": 1,
+        "balance": 10,
+        "business_handler_calls": 1
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "callback/retry/guarded",
+      "api": "callback",
+      "scenario": "retry",
+      "application_guarded": true,
+      "ingress_calls": 2,
+      "business_handler_calls": 2,
+      "first": {
+        "transport_error": {
+          "name": "Error",
+          "message": "operation has timed out"
+        },
+        "raw_ack_payload": null,
+        "userland_result": {
+          "code": "TIMEOUT",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": {
+        "transport_error": null,
+        "raw_ack_payload": {
+          "error": null,
+          "data": {
+            "actionId": "stable-business-action",
+            "playerId": "synthetic-player",
+            "amount": 10,
+            "applied": false,
+            "duplicate": true,
+            "balanceAfter": 10
+          }
+        },
+        "userland_result": {
+          "code": "OK",
+          "knowledge": "ACK_RECEIVED_AND_VALIDATED",
+          "data": {
+            "actionId": "stable-business-action",
+            "applied": false,
+            "duplicate": true,
+            "balanceAfter": 10
+          }
+        }
+      },
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 1,
+      "balance": 10,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:21.768Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:21.768Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:21.768Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:21.768Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:21.768Z",
+          "event": "ack_deliberately_withheld",
+          "effect_applied": true
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:22.268Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "TIMEOUT"
+        },
+        {
+          "sequence": 7,
+          "observed_at": "2026-10-10T22:14:22.268Z",
+          "event": "explicit_client_reconstruction_before_same_id_retry"
+        },
+        {
+          "sequence": 8,
+          "observed_at": "2026-10-10T22:14:22.272Z",
+          "event": "client_send",
+          "attempt": 2,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 9,
+          "observed_at": "2026-10-10T22:14:22.272Z",
+          "event": "request_received",
+          "ingress": 2,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 10,
+          "observed_at": "2026-10-10T22:14:22.272Z",
+          "event": "business_handler_entered",
+          "handler_call": 2
+        },
+        {
+          "sequence": 11,
+          "observed_at": "2026-10-10T22:14:22.272Z",
+          "event": "application_deduplicated",
+          "balance_after": 10
+        },
+        {
+          "sequence": 12,
+          "observed_at": "2026-10-10T22:14:22.272Z",
+          "event": "server_ack_sent",
+          "response_valid_in_fixture": true
+        },
+        {
+          "sequence": 13,
+          "observed_at": "2026-10-10T22:14:22.272Z",
+          "event": "client_settled",
+          "attempt": 2,
+          "code": "OK"
+        }
+      ],
+      "expected": {
+        "first_code": "TIMEOUT",
+        "effect_count": 1,
+        "balance": 10,
+        "business_handler_calls": 2
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "callback/retry/unguarded-negative",
+      "api": "callback",
+      "scenario": "retry",
+      "application_guarded": false,
+      "ingress_calls": 2,
+      "business_handler_calls": 2,
+      "first": {
+        "transport_error": {
+          "name": "Error",
+          "message": "operation has timed out"
+        },
+        "raw_ack_payload": null,
+        "userland_result": {
+          "code": "TIMEOUT",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": {
+        "transport_error": null,
+        "raw_ack_payload": {
+          "error": null,
+          "data": {
+            "actionId": "stable-business-action",
+            "playerId": "synthetic-player",
+            "amount": 10,
+            "applied": true,
+            "duplicate": false,
+            "balanceAfter": 20
+          }
+        },
+        "userland_result": {
+          "code": "OK",
+          "knowledge": "ACK_RECEIVED_AND_VALIDATED",
+          "data": {
+            "actionId": "stable-business-action",
+            "applied": true,
+            "duplicate": false,
+            "balanceAfter": 20
+          }
+        }
+      },
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 2,
+      "balance": 20,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        },
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:22.276Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:22.276Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:22.276Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:22.276Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:22.276Z",
+          "event": "ack_deliberately_withheld",
+          "effect_applied": true
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:22.776Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "TIMEOUT"
+        },
+        {
+          "sequence": 7,
+          "observed_at": "2026-10-10T22:14:22.777Z",
+          "event": "explicit_client_reconstruction_before_same_id_retry"
+        },
+        {
+          "sequence": 8,
+          "observed_at": "2026-10-10T22:14:22.779Z",
+          "event": "client_send",
+          "attempt": 2,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 9,
+          "observed_at": "2026-10-10T22:14:22.780Z",
+          "event": "request_received",
+          "ingress": 2,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 10,
+          "observed_at": "2026-10-10T22:14:22.780Z",
+          "event": "business_handler_entered",
+          "handler_call": 2
+        },
+        {
+          "sequence": 11,
+          "observed_at": "2026-10-10T22:14:22.780Z",
+          "event": "effect_applied",
+          "ordinal": 2,
+          "balance_before": 10,
+          "balance_after": 20
+        },
+        {
+          "sequence": 12,
+          "observed_at": "2026-10-10T22:14:22.780Z",
+          "event": "server_ack_sent",
+          "response_valid_in_fixture": true
+        },
+        {
+          "sequence": 13,
+          "observed_at": "2026-10-10T22:14:22.780Z",
+          "event": "client_settled",
+          "attempt": 2,
+          "code": "OK"
+        }
+      ],
+      "expected": {
+        "first_code": "TIMEOUT",
+        "effect_count": 2,
+        "balance": 20,
+        "business_handler_calls": 2
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "promise/success",
+      "api": "promise",
+      "scenario": "success",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 1,
+      "first": {
+        "transport_error": null,
+        "raw_ack_payload": {
+          "error": null,
+          "data": {
+            "actionId": "stable-business-action",
+            "playerId": "synthetic-player",
+            "amount": 10,
+            "applied": true,
+            "duplicate": false,
+            "balanceAfter": 10
+          }
+        },
+        "userland_result": {
+          "code": "OK",
+          "knowledge": "ACK_RECEIVED_AND_VALIDATED",
+          "data": {
+            "actionId": "stable-business-action",
+            "applied": true,
+            "duplicate": false,
+            "balanceAfter": 10
+          }
+        }
+      },
+      "retry": null,
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 1,
+      "balance": 10,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:22.783Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:22.783Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:22.783Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:22.783Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:22.783Z",
+          "event": "server_ack_sent",
+          "response_valid_in_fixture": true
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:22.783Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "OK"
+        }
+      ],
+      "expected": {
+        "first_code": "OK",
+        "effect_count": 1,
+        "balance": 10,
+        "business_handler_calls": 1
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "promise/invalid-request",
+      "api": "promise",
+      "scenario": "invalid-request",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 0,
+      "first": {
+        "transport_error": null,
+        "raw_ack_payload": {
+          "error": {
+            "code": "REQUEST_VALIDATION_ERROR"
+          },
+          "data": null
+        },
+        "userland_result": {
+          "code": "REQUEST_VALIDATION_ERROR",
+          "knowledge": "NO_SELECTED_HANDLER_EFFECT",
+          "data": null
+        }
+      },
+      "retry": null,
+      "first_effect_count": 0,
+      "first_balance": 0,
+      "effect_count": 0,
+      "balance": 0,
+      "effects": [],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:22.786Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": 42,
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:22.786Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": 42,
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:22.786Z",
+          "event": "request_rejected_before_business_handler"
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:22.786Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "REQUEST_VALIDATION_ERROR"
+        }
+      ],
+      "expected": {
+        "first_code": "REQUEST_VALIDATION_ERROR",
+        "effect_count": 0,
+        "balance": 0,
+        "business_handler_calls": 0
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "promise/invalid-response",
+      "api": "promise",
+      "scenario": "invalid-response",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 1,
+      "first": {
+        "transport_error": null,
+        "raw_ack_payload": {
+          "error": null,
+          "data": {
+            "actionId": "stable-business-action",
+            "playerId": "synthetic-player",
+            "amount": 10,
+            "applied": true,
+            "duplicate": false,
+            "balanceAfter": "ten"
+          }
+        },
+        "userland_result": {
+          "code": "RESPONSE_VALIDATION_ERROR",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": null,
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 1,
+      "balance": 10,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:22.790Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:22.790Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:22.790Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:22.790Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:22.790Z",
+          "event": "server_ack_sent",
+          "response_valid_in_fixture": false
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:22.790Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "RESPONSE_VALIDATION_ERROR"
+        }
+      ],
+      "expected": {
+        "first_code": "RESPONSE_VALIDATION_ERROR",
+        "effect_count": 1,
+        "balance": 10,
+        "business_handler_calls": 1
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "promise/timeout-no-effect",
+      "api": "promise",
+      "scenario": "timeout-no-effect",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 1,
+      "first": {
+        "transport_error": {
+          "name": "Error",
+          "message": "operation has timed out"
+        },
+        "raw_ack_payload": null,
+        "userland_result": {
+          "code": "TIMEOUT",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": null,
+      "first_effect_count": 0,
+      "first_balance": 0,
+      "effect_count": 0,
+      "balance": 0,
+      "effects": [],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:22.792Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:22.792Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:22.792Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:22.792Z",
+          "event": "ack_deliberately_withheld",
+          "effect_applied": false
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:23.292Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "TIMEOUT"
+        }
+      ],
+      "expected": {
+        "first_code": "TIMEOUT",
+        "effect_count": 0,
+        "balance": 0,
+        "business_handler_calls": 1
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "promise/timeout-after-effect",
+      "api": "promise",
+      "scenario": "timeout-after-effect",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 1,
+      "first": {
+        "transport_error": {
+          "name": "Error",
+          "message": "operation has timed out"
+        },
+        "raw_ack_payload": null,
+        "userland_result": {
+          "code": "TIMEOUT",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": null,
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 1,
+      "balance": 10,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:23.298Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:23.298Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:23.298Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:23.299Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:23.299Z",
+          "event": "ack_deliberately_withheld",
+          "effect_applied": true
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:23.799Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "TIMEOUT"
+        }
+      ],
+      "expected": {
+        "first_code": "TIMEOUT",
+        "effect_count": 1,
+        "balance": 10,
+        "business_handler_calls": 1
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "promise/disconnect-after-effect",
+      "api": "promise",
+      "scenario": "disconnect-after-effect",
+      "application_guarded": true,
+      "ingress_calls": 1,
+      "business_handler_calls": 1,
+      "first": {
+        "transport_error": {
+          "name": "Error",
+          "message": "socket has been disconnected"
+        },
+        "raw_ack_payload": null,
+        "userland_result": {
+          "code": "DISCONNECTED",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": null,
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 1,
+      "balance": 10,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:23.805Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:23.805Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:23.805Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:23.805Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:23.805Z",
+          "event": "server_initiated_disconnect_after_effect"
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:23.806Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "DISCONNECTED"
+        }
+      ],
+      "expected": {
+        "first_code": "DISCONNECTED",
+        "effect_count": 1,
+        "balance": 10,
+        "business_handler_calls": 1
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "promise/retry/guarded",
+      "api": "promise",
+      "scenario": "retry",
+      "application_guarded": true,
+      "ingress_calls": 2,
+      "business_handler_calls": 2,
+      "first": {
+        "transport_error": {
+          "name": "Error",
+          "message": "operation has timed out"
+        },
+        "raw_ack_payload": null,
+        "userland_result": {
+          "code": "TIMEOUT",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": {
+        "transport_error": null,
+        "raw_ack_payload": {
+          "error": null,
+          "data": {
+            "actionId": "stable-business-action",
+            "playerId": "synthetic-player",
+            "amount": 10,
+            "applied": false,
+            "duplicate": true,
+            "balanceAfter": 10
+          }
+        },
+        "userland_result": {
+          "code": "OK",
+          "knowledge": "ACK_RECEIVED_AND_VALIDATED",
+          "data": {
+            "actionId": "stable-business-action",
+            "applied": false,
+            "duplicate": true,
+            "balanceAfter": 10
+          }
+        }
+      },
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 1,
+      "balance": 10,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:23.808Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:23.808Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:23.808Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:23.808Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:23.808Z",
+          "event": "ack_deliberately_withheld",
+          "effect_applied": true
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:24.308Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "TIMEOUT"
+        },
+        {
+          "sequence": 7,
+          "observed_at": "2026-10-10T22:14:24.308Z",
+          "event": "explicit_client_reconstruction_before_same_id_retry"
+        },
+        {
+          "sequence": 8,
+          "observed_at": "2026-10-10T22:14:24.312Z",
+          "event": "client_send",
+          "attempt": 2,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 9,
+          "observed_at": "2026-10-10T22:14:24.312Z",
+          "event": "request_received",
+          "ingress": 2,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 10,
+          "observed_at": "2026-10-10T22:14:24.312Z",
+          "event": "business_handler_entered",
+          "handler_call": 2
+        },
+        {
+          "sequence": 11,
+          "observed_at": "2026-10-10T22:14:24.312Z",
+          "event": "application_deduplicated",
+          "balance_after": 10
+        },
+        {
+          "sequence": 12,
+          "observed_at": "2026-10-10T22:14:24.312Z",
+          "event": "server_ack_sent",
+          "response_valid_in_fixture": true
+        },
+        {
+          "sequence": 13,
+          "observed_at": "2026-10-10T22:14:24.312Z",
+          "event": "client_settled",
+          "attempt": 2,
+          "code": "OK"
+        }
+      ],
+      "expected": {
+        "first_code": "TIMEOUT",
+        "effect_count": 1,
+        "balance": 10,
+        "business_handler_calls": 2
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    },
+    {
+      "case": "promise/retry/unguarded-negative",
+      "api": "promise",
+      "scenario": "retry",
+      "application_guarded": false,
+      "ingress_calls": 2,
+      "business_handler_calls": 2,
+      "first": {
+        "transport_error": {
+          "name": "Error",
+          "message": "operation has timed out"
+        },
+        "raw_ack_payload": null,
+        "userland_result": {
+          "code": "TIMEOUT",
+          "knowledge": "UNKNOWN",
+          "data": null
+        }
+      },
+      "retry": {
+        "transport_error": null,
+        "raw_ack_payload": {
+          "error": null,
+          "data": {
+            "actionId": "stable-business-action",
+            "playerId": "synthetic-player",
+            "amount": 10,
+            "applied": true,
+            "duplicate": false,
+            "balanceAfter": 20
+          }
+        },
+        "userland_result": {
+          "code": "OK",
+          "knowledge": "ACK_RECEIVED_AND_VALIDATED",
+          "data": {
+            "actionId": "stable-business-action",
+            "applied": true,
+            "duplicate": false,
+            "balanceAfter": 20
+          }
+        }
+      },
+      "first_effect_count": 1,
+      "first_balance": 10,
+      "effect_count": 2,
+      "balance": 20,
+      "effects": [
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        },
+        {
+          "actionId": "stable-business-action",
+          "playerId": "synthetic-player",
+          "amount": 10
+        }
+      ],
+      "trace": [
+        {
+          "sequence": 1,
+          "observed_at": "2026-10-10T22:14:24.314Z",
+          "event": "client_send",
+          "attempt": 1,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 2,
+          "observed_at": "2026-10-10T22:14:24.314Z",
+          "event": "request_received",
+          "ingress": 1,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 3,
+          "observed_at": "2026-10-10T22:14:24.314Z",
+          "event": "business_handler_entered",
+          "handler_call": 1
+        },
+        {
+          "sequence": 4,
+          "observed_at": "2026-10-10T22:14:24.314Z",
+          "event": "effect_applied",
+          "ordinal": 1,
+          "balance_before": 0,
+          "balance_after": 10
+        },
+        {
+          "sequence": 5,
+          "observed_at": "2026-10-10T22:14:24.314Z",
+          "event": "ack_deliberately_withheld",
+          "effect_applied": true
+        },
+        {
+          "sequence": 6,
+          "observed_at": "2026-10-10T22:14:24.814Z",
+          "event": "client_settled",
+          "attempt": 1,
+          "code": "TIMEOUT"
+        },
+        {
+          "sequence": 7,
+          "observed_at": "2026-10-10T22:14:24.814Z",
+          "event": "explicit_client_reconstruction_before_same_id_retry"
+        },
+        {
+          "sequence": 8,
+          "observed_at": "2026-10-10T22:14:24.819Z",
+          "event": "client_send",
+          "attempt": 2,
+          "request": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 9,
+          "observed_at": "2026-10-10T22:14:24.819Z",
+          "event": "request_received",
+          "ingress": 2,
+          "payload": {
+            "actionId": "stable-business-action",
+            "claimType": "round-win"
+          }
+        },
+        {
+          "sequence": 10,
+          "observed_at": "2026-10-10T22:14:24.819Z",
+          "event": "business_handler_entered",
+          "handler_call": 2
+        },
+        {
+          "sequence": 11,
+          "observed_at": "2026-10-10T22:14:24.819Z",
+          "event": "effect_applied",
+          "ordinal": 2,
+          "balance_before": 10,
+          "balance_after": 20
+        },
+        {
+          "sequence": 12,
+          "observed_at": "2026-10-10T22:14:24.819Z",
+          "event": "server_ack_sent",
+          "response_valid_in_fixture": true
+        },
+        {
+          "sequence": 13,
+          "observed_at": "2026-10-10T22:14:24.819Z",
+          "event": "client_settled",
+          "attempt": 2,
+          "code": "OK"
+        }
+      ],
+      "expected": {
+        "first_code": "TIMEOUT",
+        "effect_count": 2,
+        "balance": 20,
+        "business_handler_calls": 2
+      },
+      "assertions": "PASS_WITHIN_BOUND"
+    }
+  ],
+  "pass_count": 16,
+  "fail_count": 0
+}
